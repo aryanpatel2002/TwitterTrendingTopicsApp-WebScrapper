@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending Topics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .results {
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #f1f1f1;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        pre {
+            background: #e8e8e8;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+    <script>
+        async function runScript() {
+            const response = await fetch('http://localhost:5000/run-script'); // Trigger Python script
+            const data = await response.json(); // Get response JSON
+            document.getElementById("results").innerHTML = `
+                <h3>These are the most happening topics as on ${data.datetime}</h3>
+                <ul>
+                    <li>${data.trend1}</li>
+                    <li>${data.trend2}</li>
+                    <li>${data.trend3}</li>
+                    <li>${data.trend4}</li>
+                    <li>${data.trend5}</li>
+                </ul>
+                <p><strong>IP Address:</strong> ${data.ip}</p>
+                <h4>JSON Extract:</h4>
+                <pre>${JSON.stringify(data.record, null, 2)}</pre>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Twitter Trending Topics</h1>
+    </header>
+    <main>
+        <button onclick="runScript()">Fetch Trending Topics</button>
+        <div id="results" class="results"></div>
+    </main>
+    <footer>
+        © 2025 Trending Topics App | Made with Aryan Patel
+    </footer>
+</body>
+</html>
+
